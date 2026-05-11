@@ -1,8 +1,11 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const RUBBER_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/4aaba729-0b21-4657-94d0-e194a6ee84e3.jpg";
-const STRAW_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/381f71b1-d53d-4956-a23f-9f38e4ad2810.jpg";
+const PRODUCT_COLORS: Record<string, string[]> = {
+  bracelets: ["#f9a8d4", "#f472b6"],
+  anklets: ["#fbcfe8", "#ec4899"],
+  necklaces: ["#fce7f3", "#db2777"],
+};
 
 type Page = "home" | "shop" | "about" | "cart";
 type Category = "all" | "bracelets" | "anklets" | "necklaces";
@@ -23,12 +26,12 @@ interface CartItem extends Product {
 }
 
 const PRODUCTS: Product[] = [
-  { id: 1, name: "Rubber Bracelet", emoji: "💗", price: 2.99, category: "bracelets", description: "Soft stretchy rubber band bracelet — stackable & super comfy!", image: RUBBER_IMG, badge: "Best Seller" },
-  { id: 2, name: "Straw Bracelet", emoji: "🌿", price: 3.99, category: "bracelets", description: "Cute handwoven straw bracelet with a boho-girly vibe.", image: STRAW_IMG },
-  { id: 3, name: "Rubber Anklet", emoji: "🌸", price: 2.99, category: "anklets", description: "Stretchy rubber anklet that fits all sizes — fun & playful!", image: RUBBER_IMG, badge: "New" },
-  { id: 4, name: "Straw Anklet", emoji: "🐚", price: 3.99, category: "anklets", description: "Braided straw anklet perfect for summer days & beach vibes.", image: STRAW_IMG },
-  { id: 5, name: "Rubber Necklace", emoji: "🍒", price: 3.99, category: "necklaces", description: "Chunky rubber band necklace in the cutest pastel colors!", image: RUBBER_IMG, badge: "Fan Fave" },
-  { id: 6, name: "Straw Necklace", emoji: "✨", price: 4.99, category: "necklaces", description: "Woven straw necklace with a natural, aesthetic finish.", image: STRAW_IMG },
+  { id: 1, name: "Rubber Bracelet", emoji: "💗", price: 2.99, category: "bracelets", description: "Soft stretchy rubber band bracelet — stackable & super comfy!", image: "", badge: "Best Seller" },
+  { id: 2, name: "Straw Bracelet", emoji: "🌿", price: 3.99, category: "bracelets", description: "Cute handwoven straw bracelet with a boho-girly vibe.", image: "" },
+  { id: 3, name: "Rubber Anklet", emoji: "🌸", price: 2.99, category: "anklets", description: "Stretchy rubber anklet that fits all sizes — fun & playful!", image: "", badge: "New" },
+  { id: 4, name: "Straw Anklet", emoji: "🐚", price: 3.99, category: "anklets", description: "Braided straw anklet perfect for summer days & beach vibes.", image: "" },
+  { id: 5, name: "Rubber Necklace", emoji: "🍒", price: 3.99, category: "necklaces", description: "Chunky rubber band necklace in the cutest pastel colors!", image: "", badge: "Fan Fave" },
+  { id: 6, name: "Straw Necklace", emoji: "✨", price: 4.99, category: "necklaces", description: "Woven straw necklace with a natural, aesthetic finish.", image: "" },
 ];
 
 const CATEGORIES = [
@@ -138,7 +141,7 @@ export default function Index() {
                 </div>
               ) : cart.map(item => (
                 <div key={item.id} className="product-card rounded-2xl p-3 flex gap-3">
-                  <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-xl" />
+                  <div className="w-16 h-16 rounded-xl flex items-center justify-center text-2xl flex-shrink-0" style={{ background: `linear-gradient(135deg, ${(PRODUCT_COLORS[item.category] || ["#f9a8d4","#f472b6"])[0]}, ${(PRODUCT_COLORS[item.category] || ["#f9a8d4","#f472b6"])[1]})` }}>{item.emoji}</div>
                   <div className="flex-1 min-w-0">
                     <p className="font-bold text-sm truncate" style={{ color: "#4a1030" }}>{item.emoji} {item.name}</p>
                     <p className="text-xs mt-0.5" style={{ color: "#c06090" }}>${item.price.toFixed(2)} each</p>
@@ -292,7 +295,7 @@ export default function Index() {
                 <h3 className="font-bold text-lg mb-4" style={{ color: "#4a1030" }}>Order Summary</h3>
                 {cart.map(item => (
                   <div key={item.id} className="flex items-center gap-3 py-2 border-b last:border-0" style={{ borderColor: "#f8bbd9" }}>
-                    <img src={item.image} alt={item.name} className="w-12 h-12 object-cover rounded-xl" />
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style={{ background: `linear-gradient(135deg, ${(PRODUCT_COLORS[item.category] || ["#f9a8d4","#f472b6"])[0]}, ${(PRODUCT_COLORS[item.category] || ["#f9a8d4","#f472b6"])[1]})` }}>{item.emoji}</div>
                     <div className="flex-1">
                       <p className="font-bold text-sm" style={{ color: "#4a1030" }}>{item.emoji} {item.name}</p>
                       <p className="text-xs" style={{ color: "#a0507a" }}>Qty: {item.qty}</p>
@@ -416,8 +419,8 @@ function ProductCard({ product, onAdd, added, delay }: { product: Product; onAdd
       className="product-card rounded-3xl overflow-hidden animate-fade-in-up opacity-0"
       style={{ animationDelay: `${delay}ms`, animationFillMode: "forwards" }}
     >
-      <div className="relative">
-        <img src={product.image} alt={product.name} className="w-full h-40 object-cover" />
+      <div className="relative w-full h-40 flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${(PRODUCT_COLORS[product.category] || ["#f9a8d4","#f472b6"])[0]}, ${(PRODUCT_COLORS[product.category] || ["#f9a8d4","#f472b6"])[1]})` }}>
+        <span className="text-5xl">{product.emoji}</span>
         {product.badge && (
           <span className="absolute top-2 left-2 text-xs font-bold px-2 py-1 rounded-full" style={{ background: "#e91e8c", color: "white" }}>
             {product.badge}
