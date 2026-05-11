@@ -24,12 +24,12 @@ interface CartItem extends Product {
 }
 
 const PRODUCTS: Product[] = [
-  { id: 1, name: "Candy Stack Set", emoji: "🍬", price: 7.99, category: "bracelets", description: "Stretchy, comfy, perfect for stacking all day long!", image: BRACELET_IMG, badge: "Best Seller" },
-  { id: 2, name: "Pink Jelly Bands", emoji: "💗", price: 5.99, category: "bracelets", description: "Soft jelly texture in the cutest pastel pinks ever.", image: BRACELET_IMG },
-  { id: 3, name: "Summer Glow Anklet", emoji: "🌸", price: 8.99, category: "anklets", description: "Dainty chain anklet that glows with every step.", image: NECKLACE_IMG, badge: "New" },
-  { id: 4, name: "Beach Babe Chain", emoji: "🐚", price: 6.99, category: "anklets", description: "Adjustable chain for the ultimate summer vibe.", image: NECKLACE_IMG },
-  { id: 5, name: "Cherry Charm Necklace", emoji: "🍒", price: 11.99, category: "necklaces", description: "Cute cherry pendant on a delicate pink chain.", image: NECKLACE_IMG, badge: "Fan Fave" },
-  { id: 6, name: "Baby Pink Pearl Chain", emoji: "🤍", price: 13.99, category: "necklaces", description: "Freshwater pearl necklace in the softest pink.", image: NECKLACE_IMG },
+  { id: 1, name: "Candy Stack Set", emoji: "🍬", price: 3.99, category: "bracelets", description: "Stretchy, comfy, perfect for stacking all day long!", image: BRACELET_IMG, badge: "Best Seller" },
+  { id: 2, name: "Pink Jelly Bands", emoji: "💗", price: 2.99, category: "bracelets", description: "Soft jelly texture in the cutest pastel pinks ever.", image: BRACELET_IMG },
+  { id: 3, name: "Summer Glow Anklet", emoji: "🌸", price: 4.99, category: "anklets", description: "Dainty chain anklet that glows with every step.", image: NECKLACE_IMG, badge: "New" },
+  { id: 4, name: "Beach Babe Chain", emoji: "🐚", price: 3.99, category: "anklets", description: "Adjustable chain for the ultimate summer vibe.", image: NECKLACE_IMG },
+  { id: 5, name: "Cherry Charm Necklace", emoji: "🍒", price: 4.99, category: "necklaces", description: "Cute cherry pendant on a delicate pink chain.", image: NECKLACE_IMG, badge: "Fan Fave" },
+  { id: 6, name: "Baby Pink Pearl Chain", emoji: "🤍", price: 2.99, category: "necklaces", description: "Freshwater pearl necklace in the softest pink.", image: NECKLACE_IMG },
 ];
 
 const CATEGORIES = [
