@@ -401,8 +401,8 @@ export default function Index() {
 
       {/* FOOTER */}
       <footer className="text-center py-10 px-4 mt-10 border-t" style={{ borderColor: "#f8bbd9" }}>
-        <p className="font-pacifico text-xl mb-2" style={{ color: "#e91e8c" }}>Pink Pop Shop 💗</p>
-        <p className="text-sm font-semibold" style={{ color: "#a0507a" }}>pinkpopshop.com · Made with love & sparkles ✨</p>
+        <a href="https://www.PinkPopShop.com" target="_blank" rel="noopener noreferrer" className="font-pacifico text-xl mb-2 block hover:opacity-80 transition-opacity" style={{ color: "#e91e8c" }}>Pink Pop Shop 💗</a>
+        <p className="text-sm font-semibold" style={{ color: "#a0507a" }}><a href="https://www.PinkPopShop.com" target="_blank" rel="noopener noreferrer" className="hover:underline">pinkpopshop.com</a> · Made with love & sparkles ✨</p>
         <div className="flex justify-center gap-6 mt-4">
           <button onClick={() => setPage("home")} className="text-sm font-semibold hover:opacity-70 transition-opacity" style={{ color: "#c06090" }}>Home</button>
           <button onClick={() => setPage("shop")} className="text-sm font-semibold hover:opacity-70 transition-opacity" style={{ color: "#c06090" }}>Shop</button>
