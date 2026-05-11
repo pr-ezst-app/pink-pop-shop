@@ -41,12 +41,45 @@ const CATEGORIES = [
   { key: "necklaces" as Category, label: "Necklaces 🍒" },
 ];
 
+const PLACE_ORDER_URL = "https://functions.poehali.dev/0ba208c2-f95d-4bb2-accd-2775bfdf1afc";
+
 export default function Index() {
   const [page, setPage] = useState<Page>("home");
   const [cart, setCart] = useState<CartItem[]>([]);
   const [category, setCategory] = useState<Category>("all");
   const [cartOpen, setCartOpen] = useState(false);
   const [addedId, setAddedId] = useState<number | null>(null);
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderLoading, setOrderLoading] = useState(false);
+  const [orderError, setOrderError] = useState("");
+  const [form, setForm] = useState({ first_name: "", last_name: "", email: "", phone: "", street: "", city: "", state: "", zip: "" });
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const placeOrder = async () => {
+    setOrderError("");
+    setOrderLoading(true);
+    try {
+      const res = await fetch(PLACE_ORDER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, items: cart, total: cartTotal }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setOrderPlaced(true);
+        setCart([]);
+      } else {
+        setOrderError(data.error || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setOrderError("Something went wrong. Please try again.");
+    } finally {
+      setOrderLoading(false);
+    }
+  };
 
   const cartCount = cart.reduce((s, i) => s + i.qty, 0);
   const cartTotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
@@ -283,7 +316,14 @@ export default function Index() {
         <div className="max-w-2xl mx-auto px-4 py-10">
           <h2 className="font-pacifico text-4xl text-center mb-8" style={{ color: "#e91e8c" }}>Checkout 🛍️</h2>
 
-          {cart.length === 0 ? (
+          {orderPlaced ? (
+            <div className="text-center py-16 space-y-4">
+              <div className="text-6xl animate-float inline-block">🎀</div>
+              <h3 className="font-pacifico text-3xl" style={{ color: "#e91e8c" }}>Order Placed!</h3>
+              <p className="font-semibold" style={{ color: "#7a3060" }}>Thank you so much! We'll get your goodies packed with love and shipped to you soon. 💗</p>
+              <button onClick={() => { setOrderPlaced(false); setPage("shop"); }} className="btn-pink px-8 py-3 mt-4">Keep Shopping ✨</button>
+            </div>
+          ) : cart.length === 0 ? (
             <div className="text-center py-16">
               <div className="text-6xl mb-4">🛒</div>
               <p className="font-bold text-lg mb-4" style={{ color: "#a0507a" }}>Your cart is empty!</p>
@@ -314,43 +354,45 @@ export default function Index() {
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="text-xs font-bold block mb-1" style={{ color: "#a0507a" }}>First Name</label>
-                    <input className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="Emma" />
+                    <input name="first_name" value={form.first_name} onChange={handleFormChange} className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="Emma" />
                   </div>
                   <div>
                     <label className="text-xs font-bold block mb-1" style={{ color: "#a0507a" }}>Last Name</label>
-                    <input className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="Smith" />
+                    <input name="last_name" value={form.last_name} onChange={handleFormChange} className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="Smith" />
                   </div>
                 </div>
                 <div>
                   <label className="text-xs font-bold block mb-1" style={{ color: "#a0507a" }}>Email</label>
-                  <input type="email" className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="emma@email.com" />
+                  <input type="email" name="email" value={form.email} onChange={handleFormChange} className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="emma@email.com" />
                 </div>
                 <div>
                   <label className="text-xs font-bold block mb-1" style={{ color: "#a0507a" }}>Street Address</label>
-                  <input className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="123 Blossom Lane" />
+                  <input name="street" value={form.street} onChange={handleFormChange} className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="123 Blossom Lane" />
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   <div>
                     <label className="text-xs font-bold block mb-1" style={{ color: "#a0507a" }}>City</label>
-                    <input className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="LA" />
+                    <input name="city" value={form.city} onChange={handleFormChange} className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="LA" />
                   </div>
                   <div>
                     <label className="text-xs font-bold block mb-1" style={{ color: "#a0507a" }}>State</label>
-                    <input className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="CA" />
+                    <input name="state" value={form.state} onChange={handleFormChange} className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="CA" />
                   </div>
                   <div>
                     <label className="text-xs font-bold block mb-1" style={{ color: "#a0507a" }}>ZIP</label>
-                    <input className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="90001" />
+                    <input name="zip" value={form.zip} onChange={handleFormChange} className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="90001" />
                   </div>
                 </div>
                 <div>
                   <label className="text-xs font-bold block mb-1" style={{ color: "#a0507a" }}>Phone (optional)</label>
-                  <input type="tel" className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="+1 (555) 000-0000" />
+                  <input type="tel" name="phone" value={form.phone} onChange={handleFormChange} className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none" style={{ borderColor: "#f8bbd9", fontFamily: "Nunito", color: "#4a1030" }} placeholder="+1 (555) 000-0000" />
                 </div>
               </div>
 
-              <button className="btn-pink w-full py-4 text-lg font-bold animate-pulse-pink">
-                Place Order 💗
+              {orderError && <p className="text-center text-sm font-semibold" style={{ color: "#e91e8c" }}>{orderError}</p>}
+
+              <button onClick={placeOrder} disabled={orderLoading} className="btn-pink w-full py-4 text-lg font-bold animate-pulse-pink disabled:opacity-60">
+                {orderLoading ? "Placing Order..." : "Place Order 💗"}
               </button>
               <p className="text-center text-xs font-semibold" style={{ color: "#a0507a" }}>🔒 Secure checkout — your info is safe with us</p>
             </div>

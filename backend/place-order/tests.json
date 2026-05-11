@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "name": "Place order successfully",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "first_name": "Emma",
+        "last_name": "Smith",
+        "email": "emma@email.com",
+        "phone": "",
+        "street": "123 Blossom Lane",
+        "city": "LA",
+        "state": "CA",
+        "zip": "90001",
+        "items": [{"id": 1, "name": "Rubber Bracelet", "price": 2.99, "qty": 2}],
+        "total": 5.98
+      },
+      "expectedStatus": 200,
+      "expectedBody": {"success": true},
+      "bodyMatcher": "partial"
+    }
+  ]
+}
