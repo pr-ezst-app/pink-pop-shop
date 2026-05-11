@@ -1,9 +1,8 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const BRACELET_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/696e7c7b-d3bf-4114-b560-39f5c9042e9b.jpg";
-
-const NECKLACE_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/3637940f-4b85-41e7-9686-ea49dd850eff.jpg";
+const RUBBER_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/696e7c7b-d3bf-4114-b560-39f5c9042e9b.jpg";
+const STRAW_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/60cb2e7c-1880-44d8-a432-c0f26bb01f1f.jpg";
 
 type Page = "home" | "shop" | "about" | "cart";
 type Category = "all" | "bracelets" | "anklets" | "necklaces";
@@ -24,12 +23,12 @@ interface CartItem extends Product {
 }
 
 const PRODUCTS: Product[] = [
-  { id: 1, name: "Candy Stack Set", emoji: "🍬", price: 3.99, category: "bracelets", description: "Stretchy, comfy, perfect for stacking all day long!", image: BRACELET_IMG, badge: "Best Seller" },
-  { id: 2, name: "Pink Jelly Bands", emoji: "💗", price: 2.99, category: "bracelets", description: "Soft jelly texture in the cutest pastel pinks ever.", image: BRACELET_IMG },
-  { id: 3, name: "Summer Glow Anklet", emoji: "🌸", price: 4.99, category: "anklets", description: "Dainty chain anklet that glows with every step.", image: NECKLACE_IMG, badge: "New" },
-  { id: 4, name: "Beach Babe Chain", emoji: "🐚", price: 3.99, category: "anklets", description: "Adjustable chain for the ultimate summer vibe.", image: NECKLACE_IMG },
-  { id: 5, name: "Cherry Charm Necklace", emoji: "🍒", price: 4.99, category: "necklaces", description: "Cute cherry pendant on a delicate pink chain.", image: NECKLACE_IMG, badge: "Fan Fave" },
-  { id: 6, name: "Baby Pink Pearl Chain", emoji: "🤍", price: 2.99, category: "necklaces", description: "Freshwater pearl necklace in the softest pink.", image: NECKLACE_IMG },
+  { id: 1, name: "Rubber Bracelet", emoji: "💗", price: 2.99, category: "bracelets", description: "Soft stretchy rubber band bracelet — stackable & super comfy!", image: RUBBER_IMG, badge: "Best Seller" },
+  { id: 2, name: "Straw Bracelet", emoji: "🌿", price: 3.99, category: "bracelets", description: "Cute handwoven straw bracelet with a boho-girly vibe.", image: STRAW_IMG },
+  { id: 3, name: "Rubber Anklet", emoji: "🌸", price: 2.99, category: "anklets", description: "Stretchy rubber anklet that fits all sizes — fun & playful!", image: RUBBER_IMG, badge: "New" },
+  { id: 4, name: "Straw Anklet", emoji: "🐚", price: 3.99, category: "anklets", description: "Braided straw anklet perfect for summer days & beach vibes.", image: STRAW_IMG },
+  { id: 5, name: "Rubber Necklace", emoji: "🍒", price: 3.99, category: "necklaces", description: "Chunky rubber band necklace in the cutest pastel colors!", image: RUBBER_IMG, badge: "Fan Fave" },
+  { id: 6, name: "Straw Necklace", emoji: "✨", price: 4.99, category: "necklaces", description: "Woven straw necklace with a natural, aesthetic finish.", image: STRAW_IMG },
 ];
 
 const CATEGORIES = [
