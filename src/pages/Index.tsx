@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const RUBBER_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/696e7c7b-d3bf-4114-b560-39f5c9042e9b.jpg";
-const STRAW_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/60cb2e7c-1880-44d8-a432-c0f26bb01f1f.jpg";
+const RUBBER_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/4aaba729-0b21-4657-94d0-e194a6ee84e3.jpg";
+const STRAW_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/381f71b1-d53d-4956-a23f-9f38e4ad2810.jpg";
 
 type Page = "home" | "shop" | "about" | "cart";
 type Category = "all" | "bracelets" | "anklets" | "necklaces";
