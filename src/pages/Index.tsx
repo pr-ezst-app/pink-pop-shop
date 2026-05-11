@@ -2,11 +2,11 @@ import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
 const BRACELET_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/696e7c7b-d3bf-4114-b560-39f5c9042e9b.jpg";
-const STRAW_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/a2cf444c-cee2-4b9c-84c7-5e9a877eea04.jpg";
+
 const NECKLACE_IMG = "https://cdn.ezst.app/projects/be169a74-ace8-4776-a116-18b5c76e009e/files/3637940f-4b85-41e7-9686-ea49dd850eff.jpg";
 
 type Page = "home" | "shop" | "about" | "cart";
-type Category = "all" | "bracelets" | "anklets" | "necklaces" | "straws";
+type Category = "all" | "bracelets" | "anklets" | "necklaces";
 
 interface Product {
   id: number;
@@ -30,8 +30,6 @@ const PRODUCTS: Product[] = [
   { id: 4, name: "Beach Babe Chain", emoji: "🐚", price: 6.99, category: "anklets", description: "Adjustable chain for the ultimate summer vibe.", image: NECKLACE_IMG },
   { id: 5, name: "Cherry Charm Necklace", emoji: "🍒", price: 11.99, category: "necklaces", description: "Cute cherry pendant on a delicate pink chain.", image: NECKLACE_IMG, badge: "Fan Fave" },
   { id: 6, name: "Baby Pink Pearl Chain", emoji: "🤍", price: 13.99, category: "necklaces", description: "Freshwater pearl necklace in the softest pink.", image: NECKLACE_IMG },
-  { id: 7, name: "Strawberry Sip Set", emoji: "🍓", price: 9.99, category: "straws", description: "6 reusable aesthetic straws — fun + eco-friendly!", image: STRAW_IMG, badge: "Best Seller" },
-  { id: 8, name: "Glow Drink Straws", emoji: "✨", price: 7.99, category: "straws", description: "Pastel ombre reusable straws with a carry pouch.", image: STRAW_IMG },
 ];
 
 const CATEGORIES = [
@@ -39,7 +37,6 @@ const CATEGORIES = [
   { key: "bracelets" as Category, label: "Bracelets 💗" },
   { key: "anklets" as Category, label: "Anklets 🌸" },
   { key: "necklaces" as Category, label: "Necklaces 🍒" },
-  { key: "straws" as Category, label: "Straws 🍓" },
 ];
 
 export default function Index() {
@@ -217,7 +214,6 @@ export default function Index() {
                   { label: "Bracelets 💗", cat: "bracelets" },
                   { label: "Anklets 🌸", cat: "anklets" },
                   { label: "Necklaces 🍒", cat: "necklaces" },
-                  { label: "Straws 🍓", cat: "straws" },
                 ].map(({ label, cat }) => (
                   <button
                     key={cat}
